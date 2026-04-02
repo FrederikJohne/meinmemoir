@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { BookOpen } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import NextLink from "next/link";
 
 export function Footer() {
   const t = useTranslations("landing.footer");
@@ -29,28 +29,28 @@ export function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <a
+                <NextLink
                   href="/datenschutz"
                   className="text-sm text-stone-400 hover:text-white transition-colors"
                 >
                   {t("privacy")}
-                </a>
+                </NextLink>
               </li>
               <li>
-                <a
+                <NextLink
                   href="/agb"
                   className="text-sm text-stone-400 hover:text-white transition-colors"
                 >
                   {t("terms")}
-                </a>
+                </NextLink>
               </li>
               <li>
-                <a
+                <NextLink
                   href="/impressum"
                   className="text-sm text-stone-400 hover:text-white transition-colors"
                 >
                   {t("imprint")}
-                </a>
+                </NextLink>
               </li>
             </ul>
           </div>

@@ -2,10 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mic, Play, Edit, BookOpen, Clock } from "lucide-react";
+import { Mic, Play, Edit, Clock } from "lucide-react";
 import type { Recording, Prompt } from "@/lib/types";
 
 interface RecordingWithPrompt extends Recording {

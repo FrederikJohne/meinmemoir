@@ -3,9 +3,11 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Check, BookOpen } from "lucide-react";
+import { useState } from "react";
 
 export function Pricing() {
   const t = useTranslations("landing.pricing");
+  const [loading, setLoading] = useState(false);
 
   const features: string[] = [
     t("package.features.0"),
@@ -16,6 +18,23 @@ export function Pricing() {
     t("package.features.5"),
     t("package.features.6"),
   ];
+
+  const handleCheckout = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ locale: "de" }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch {
+      setLoading(false);
+    }
+  };
 
   return (
     <section id="pricing" className="py-20 sm:py-28 bg-white">
@@ -57,11 +76,14 @@ export function Pricing() {
               ))}
             </ul>
 
-            <Button className="w-full" size="lg" asChild>
-              <a href="/api/checkout">
-                <BookOpen className="h-5 w-5 mr-1" />
-                {t("package.cta")}
-              </a>
+            <Button
+              className="w-full"
+              size="lg"
+              onClick={handleCheckout}
+              disabled={loading}
+            >
+              <BookOpen className="h-5 w-5 mr-1" />
+              {loading ? "..." : t("package.cta")}
             </Button>
 
             <p className="text-center text-xs text-stone-500 mt-4">

@@ -19,7 +19,7 @@ interface FamilyMember {
 
 export default function FamilyPage() {
   const t = useTranslations("dashboard.family");
-  const [members, setMembers] = useState<FamilyMember[]>([]);
+  const [members] = useState<FamilyMember[]>([]);
   const [showInvite, setShowInvite] = useState(false);
   const [inviteEmail, setInviteEmail] = useState("");
   const [loading, setLoading] = useState(false);
