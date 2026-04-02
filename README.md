@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MeineMemoiren.com
+
+A voice-to-story memoir platform for the German market. MeineMemoiren transforms loved ones' memories into a beautiful printed book with QR-code voice playback.
+
+## Architecture
+
+The platform serves two distinct user personas:
+
+1. **The Buyer (Adult Child):** SaaS-like dashboard with auth, payments, and family management.
+2. **The Storyteller (Senior):** Interacts only via magic links sent through WhatsApp/SMS/Email. No login, no app, no password.
+
+### Services
+
+| Service | Technology | Purpose |
+|---------|-----------|---------|
+| **web** | Next.js (App Router) | Landing page, dashboard, recording pages, API routes |
+| **worker** | Node.js | AI processing: Deepgram → GPT-4o → QR code generation |
+| **scheduler** | Node.js | Weekly prompt dispatch via WhatsApp/SMS, audio cleanup |
+
+### Tech Stack
+
+- **Frontend:** Next.js 16, Tailwind CSS v4, shadcn/ui
+- **Backend:** Next.js API routes + Railway worker services
+- **Database & Auth:** Supabase (PostgreSQL + Auth + RLS + Storage) — EU Frankfurt
+- **Analytics:** PostHog EU Cloud
+- **Payments:** Stripe (Credit Card, SEPA, Klarna, PayPal)
+- **Messaging:** WhatsApp Business API (Meta) + Twilio (SMS fallback)
+- **Speech-to-Text:** Deepgram Nova-3
+- **Text Processing:** OpenAI GPT-4o
+- **Hosting:** Railway (EU region)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Fill in your actual values
+
+# Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── src/
+│   ├── app/
+│   │   ├── (auth)/           # Login/signup pages
+│   │   ├── (dashboard)/      # Buyer dashboard
+│   │   ├── api/              # API routes
+│   │   ├── r/[token]/        # Magic link recording page
+│   │   ├── listen/[id]/      # QR code playback page
+│   │   └── onboarding/       # Storyteller setup
+│   ├── components/
+│   │   ├── dashboard/        # Dashboard components
+│   │   ├── landing/          # Landing page sections
+│   │   ├── recording/        # Audio recorder
+│   │   └── ui/               # shadcn/ui components
+│   └── lib/
+│       ├── supabase/         # Supabase clients
+│       ├── stripe/           # Stripe client
+│       ├── posthog/          # PostHog clients
+│       ├── messaging/        # WhatsApp & SMS
+│       ├── book/             # PDF generation
+│       └── types.ts          # TypeScript types
+├── worker/                   # AI processing worker (Railway Service 2)
+├── scheduler/                # Prompt dispatch (Railway Service 3)
+├── supabase/migrations/      # Database schema & RLS policies
+└── messages/                 # i18n translations (de, en, sv)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Database Setup
 
-## Learn More
+Run the SQL migrations in order against your Supabase project:
 
-To learn more about Next.js, take a look at the following resources:
+1. `supabase/migrations/001_initial_schema.sql` — Tables, enums, indexes, triggers
+2. `supabase/migrations/002_rls_policies.sql` — Row Level Security
+3. `supabase/migrations/003_seed_prompts.sql` — 52 weekly questions (DE/EN/SV)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+See `.env.example` for all required environment variables. Key services:
 
-## Deploy on Vercel
+- **Supabase** — EU Frankfurt region project
+- **Stripe** — Payment processing
+- **Deepgram** — Speech-to-text (Nova-3, German)
+- **OpenAI** — Story cleanup (GPT-4o)
+- **PostHog** — Analytics (EU Cloud endpoint)
+- **WhatsApp/Twilio** — Message delivery
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Railway Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Each service has its own `railway.toml` configuration:
+
+```bash
+# Deploy web app
+railway up --service web
+
+# Deploy worker
+cd worker && railway up --service worker
+
+# Deploy scheduler
+cd scheduler && railway up --service scheduler
+```
+
+## GDPR Compliance
+
+- All data stored on EU servers (Frankfurt)
+- Supabase + PostHog EU endpoints
+- Audio retention policy: 90-day auto-deletion after book delivery
+- Cookie consent integrated with PostHog
+- Recording consent required before microphone access
