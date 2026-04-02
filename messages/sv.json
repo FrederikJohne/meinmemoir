@@ -1,0 +1,239 @@
+{
+  "common": {
+    "appName": "MeineMemoiren",
+    "tagline": "Bevara berättelserna om dina nära och kära",
+    "loading": "Laddar...",
+    "error": "Ett fel inträffade",
+    "retry": "Försök igen",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Radera",
+    "edit": "Redigera",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "close": "Stäng",
+    "login": "Logga in",
+    "logout": "Logga ut",
+    "signup": "Registrera"
+  },
+  "landing": {
+    "hero": {
+      "title": "Din familjs berättelser — bevarade för alltid",
+      "subtitle": "Ge dina nära och kära en talande minnesbok. Mormor eller morfar berättar sina historier med rösten, och vi gör en vacker bok av dem.",
+      "cta": "Ge en minnesbok nu",
+      "price": "från 99 €",
+      "trust": "Över 2 000 familjer litar redan på oss"
+    },
+    "howItWorks": {
+      "title": "Så fungerar det",
+      "step1": {
+        "title": "Du ger boken som present",
+        "description": "Beställ minnesbokspaketet och ange berättarens kontaktuppgifter."
+      },
+      "step2": {
+        "title": "Veckovisa frågor via WhatsApp",
+        "description": "Varje vecka får mormor eller morfar en kärleksfull fråga via WhatsApp — och svarar enkelt med ett röstmeddelande."
+      },
+      "step3": {
+        "title": "AI skapar texten",
+        "description": "Vår AI förvandlar varje röstmeddelande till vackra, läsbara berättelser — med den ursprungliga rösten bevarad."
+      },
+      "step4": {
+        "title": "Din familjebok anländer",
+        "description": "Till slut får du en premiumtryckt bok med QR-koder för att lyssna på originalinspelningarna."
+      }
+    },
+    "features": {
+      "title": "Varför MeineMemoiren?",
+      "noApp": {
+        "title": "Ingen app behövs",
+        "description": "Berättaren behöver ingen app, inget konto, inget lösenord. Allt fungerar via en enkel länk."
+      },
+      "whatsapp": {
+        "title": "WhatsApp-integration",
+        "description": "Frågor kommer direkt via WhatsApp — kanalen som äldre redan känner till och använder."
+      },
+      "ai": {
+        "title": "AI-driven redigering",
+        "description": "Vår AI bevarar den ursprungliga tonen och dialekten samtidigt som den tar bort fyllnadsord och förbättrar läsbarheten."
+      },
+      "print": {
+        "title": "Premiumtryck",
+        "description": "En premiumbok i hårt omslag med QR-koder som låter dig lyssna på den ursprungliga rösten."
+      },
+      "family": {
+        "title": "För hela familjen",
+        "description": "Bjud in familjemedlemmar att lägga till foton och uppleva berättelserna tillsammans."
+      },
+      "privacy": {
+        "title": "GDPR-kompatibel",
+        "description": "All data lagras i EU och behandlas enligt de strängaste integritetsstandarderna."
+      }
+    },
+    "pricing": {
+      "title": "En gåva som varar",
+      "package": {
+        "name": "Minnesboken",
+        "price": "99",
+        "currency": "€",
+        "description": "Allt du behöver för att bevara din familjs berättelser för alltid.",
+        "features": [
+          "52 veckor med veckovisa frågor",
+          "Obegränsade röstinspelningar",
+          "AI-driven textredigering",
+          "1 premiumbok i hårt omslag ingår",
+          "QR-koder med originalröst",
+          "Dashboard för hela familjen",
+          "GDPR-kompatibel datalagring"
+        ],
+        "cta": "Ge som present nu"
+      },
+      "extraCopy": "Ytterligare exemplar från 29 € styck"
+    },
+    "faq": {
+      "title": "Vanliga frågor",
+      "items": [
+        {
+          "question": "Behöver mormor/morfar en smartphone?",
+          "answer": "Ja, en smartphone med WhatsApp eller SMS räcker. Ingen appinstallation behövs — allt fungerar via en enkel länk i webbläsaren."
+        },
+        {
+          "question": "Vad händer med inspelningarna?",
+          "answer": "Alla inspelningar lagras säkert i EU och behandlas i enlighet med GDPR. Du har alltid full kontroll över datan."
+        },
+        {
+          "question": "Kan jag redigera texterna?",
+          "answer": "Ja! I familjedashboarden kan du granska, redigera alla AI-genererade texter och lägga till foton innan boken trycks."
+        },
+        {
+          "question": "Hur lång tid tar det innan boken är klar?",
+          "answer": "Programmet pågår i 52 veckor. Men du kan beställa boken när som helst — även med färre berättelser."
+        },
+        {
+          "question": "Vad kostar ett extra exemplar?",
+          "answer": "Ytterligare exemplar kostar från 29 € styck — perfekt som present till syskon eller andra familjemedlemmar."
+        }
+      ]
+    },
+    "footer": {
+      "company": "MeineMemoiren",
+      "tagline": "Din familjs berättelser — bevarade för alltid.",
+      "legal": "Juridiskt",
+      "privacy": "Integritetspolicy",
+      "terms": "Användarvillkor",
+      "imprint": "Impressum",
+      "contact": "Kontakt",
+      "email": "hej@meinememoiren.com"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Välkommen tillbaka",
+      "subtitle": "Logga in för att komma åt din familjedashboard",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "submit": "Logga in",
+      "forgotPassword": "Glömt lösenord?",
+      "noAccount": "Har du inget konto?",
+      "signupLink": "Registrera dig nu",
+      "orContinueWith": "Eller fortsätt med",
+      "google": "Logga in med Google"
+    },
+    "signup": {
+      "title": "Skapa konto",
+      "subtitle": "Skapa ditt konto för att komma igång",
+      "name": "Namn",
+      "email": "E-postadress",
+      "password": "Lösenord",
+      "confirmPassword": "Bekräfta lösenord",
+      "submit": "Skapa konto",
+      "hasAccount": "Har du redan ett konto?",
+      "loginLink": "Logga in nu"
+    }
+  },
+  "onboarding": {
+    "title": "Konfigurera din berättare",
+    "subtitle": "Ange kontaktuppgifterna för personen vars berättelser du vill bevara.",
+    "name": "Berättarens namn",
+    "namePlaceholder": "t.ex. Mormor Helga",
+    "phone": "Telefonnummer",
+    "phonePlaceholder": "+46 70 123 45 67",
+    "deliveryMethod": "Hur ska frågorna levereras?",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "emailOption": "E-post",
+    "language": "Språk",
+    "german": "Tyska",
+    "swedish": "Svenska",
+    "english": "Engelska",
+    "submit": "Slutför konfigurering"
+  },
+  "dashboard": {
+    "title": "Familjedashboard",
+    "nav": {
+      "stories": "Berättelser",
+      "book": "Bok",
+      "family": "Familj",
+      "settings": "Inställningar"
+    },
+    "stories": {
+      "title": "Berättelser",
+      "empty": "Inga berättelser ännu. Den första inspelningen kommer snart!",
+      "status": {
+        "pending": "Väntande",
+        "processing": "Bearbetas",
+        "completed": "Klar",
+        "failed": "Misslyckades"
+      },
+      "listen": "Lyssna",
+      "edit": "Redigera",
+      "viewAll": "Visa alla"
+    },
+    "book": {
+      "title": "Din bok",
+      "storiesCount": "{count} berättelser",
+      "preview": "Förhandsgranska",
+      "print": "Beställ boktryck",
+      "extraCopies": "Beställ extra exemplar"
+    },
+    "family": {
+      "title": "Familjemedlemmar",
+      "invite": "Bjud in medlem",
+      "role": {
+        "admin": "Administratör",
+        "family_member": "Familjemedlem"
+      }
+    },
+    "settings": {
+      "title": "Inställningar",
+      "storyteller": "Berättare",
+      "subscription": "Prenumeration",
+      "notifications": "Aviseringar"
+    }
+  },
+  "recording": {
+    "greeting": "Hej {name}!",
+    "intro": "Din familj vill höra din berättelse.",
+    "question": "Veckans fråga",
+    "record": "Spela in",
+    "stop": "Stoppa",
+    "submit": "Skicka inspelning",
+    "recording": "Spelar in...",
+    "uploading": "Laddar upp...",
+    "success": {
+      "title": "Tack!",
+      "message": "Din inspelning har sparats. Din familj kommer bli så glad!",
+      "another": "Gör en till inspelning"
+    },
+    "consent": "Din inspelning lagras säkert och används bara för din familjebok.",
+    "expired": {
+      "title": "Länken har gått ut",
+      "message": "Den här inspelningslänken har gått ut. Kontakta din familj för en ny länk."
+    },
+    "error": {
+      "microphone": "Tillåt mikrofonåtkomst för att göra en inspelning.",
+      "upload": "Inspelningen kunde inte laddas upp. Försök igen.",
+      "generic": "Ett fel inträffade. Försök igen."
+    }
+  }
+}

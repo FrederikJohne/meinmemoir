@@ -1,0 +1,239 @@
+{
+  "common": {
+    "appName": "MeineMemoiren",
+    "tagline": "Preserve the stories of your loved ones",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "login": "Log in",
+    "logout": "Log out",
+    "signup": "Sign up"
+  },
+  "landing": {
+    "hero": {
+      "title": "Your family's stories — preserved forever",
+      "subtitle": "Gift your loved ones a talking memory book. Grandma or Grandpa tells their stories by voice, and we turn them into a beautiful book.",
+      "cta": "Gift a Memory Book Now",
+      "price": "from €99",
+      "trust": "Over 2,000 families already trust us"
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "step1": {
+        "title": "You gift the book",
+        "description": "Order the memory book package and provide the storyteller's contact details."
+      },
+      "step2": {
+        "title": "Weekly questions via WhatsApp",
+        "description": "Each week, Grandma or Grandpa receives a loving question via WhatsApp — and simply replies with a voice message."
+      },
+      "step3": {
+        "title": "AI creates the text",
+        "description": "Our AI transforms each voice message into beautiful, readable stories — preserving the original voice."
+      },
+      "step4": {
+        "title": "Your family book arrives",
+        "description": "In the end, you receive a premium printed book with QR codes to listen to the original recordings."
+      }
+    },
+    "features": {
+      "title": "Why MeineMemoiren?",
+      "noApp": {
+        "title": "No app needed",
+        "description": "The storyteller needs no app, no account, no password. Everything works through a simple link."
+      },
+      "whatsapp": {
+        "title": "WhatsApp integration",
+        "description": "Questions arrive directly via WhatsApp — the channel seniors already know and use."
+      },
+      "ai": {
+        "title": "AI-powered editing",
+        "description": "Our AI preserves the original tone and dialect while removing filler words and improving readability."
+      },
+      "print": {
+        "title": "Premium printing",
+        "description": "A premium hardcover book with QR codes that let you listen to the original voice."
+      },
+      "family": {
+        "title": "For the whole family",
+        "description": "Invite family members to add photos and experience the stories together."
+      },
+      "privacy": {
+        "title": "GDPR compliant",
+        "description": "All data is stored in the EU and processed according to the strictest privacy standards."
+      }
+    },
+    "pricing": {
+      "title": "A gift that lasts",
+      "package": {
+        "name": "The Memory Book",
+        "price": "99",
+        "currency": "€",
+        "description": "Everything you need to preserve your family's stories forever.",
+        "features": [
+          "52 weeks of weekly questions",
+          "Unlimited voice recordings",
+          "AI-powered text editing",
+          "1 premium hardcover book included",
+          "QR codes with original voice",
+          "Dashboard for the whole family",
+          "GDPR-compliant data storage"
+        ],
+        "cta": "Gift Now"
+      },
+      "extraCopy": "Additional copies from €29 each"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        {
+          "question": "Does Grandma/Grandpa need a smartphone?",
+          "answer": "Yes, a smartphone with WhatsApp or SMS is sufficient. No app installation needed — everything works through a simple link in the browser."
+        },
+        {
+          "question": "What happens to the recordings?",
+          "answer": "All recordings are securely stored in the EU and processed in GDPR compliance. You always have full control over the data."
+        },
+        {
+          "question": "Can I edit the texts?",
+          "answer": "Yes! In the family dashboard, you can review, edit all AI-generated texts and add photos before the book is printed."
+        },
+        {
+          "question": "How long until the book is ready?",
+          "answer": "The program runs for 52 weeks. But you can order the book at any time — even with fewer stories."
+        },
+        {
+          "question": "How much does an extra copy cost?",
+          "answer": "Additional copies cost from €29 each — perfect as gifts for siblings or other family members."
+        }
+      ]
+    },
+    "footer": {
+      "company": "MeineMemoiren",
+      "tagline": "Your family's stories — preserved forever.",
+      "legal": "Legal",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "imprint": "Imprint",
+      "contact": "Contact",
+      "email": "hello@meinememoiren.com"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to access your family dashboard",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up now",
+      "orContinueWith": "Or continue with",
+      "google": "Sign in with Google"
+    },
+    "signup": {
+      "title": "Create account",
+      "subtitle": "Create your account to get started",
+      "name": "Name",
+      "email": "Email address",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submit": "Create account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in now"
+    }
+  },
+  "onboarding": {
+    "title": "Set up your storyteller",
+    "subtitle": "Enter the contact details of the person whose stories you want to preserve.",
+    "name": "Storyteller's name",
+    "namePlaceholder": "e.g. Grandma Helen",
+    "phone": "Phone number",
+    "phonePlaceholder": "+49 171 1234567",
+    "deliveryMethod": "How should questions be delivered?",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "emailOption": "Email",
+    "language": "Language",
+    "german": "German",
+    "swedish": "Swedish",
+    "english": "English",
+    "submit": "Complete setup"
+  },
+  "dashboard": {
+    "title": "Family Dashboard",
+    "nav": {
+      "stories": "Stories",
+      "book": "Book",
+      "family": "Family",
+      "settings": "Settings"
+    },
+    "stories": {
+      "title": "Stories",
+      "empty": "No stories yet. The first recording will arrive soon!",
+      "status": {
+        "pending": "Pending",
+        "processing": "Processing",
+        "completed": "Completed",
+        "failed": "Failed"
+      },
+      "listen": "Listen",
+      "edit": "Edit",
+      "viewAll": "View all"
+    },
+    "book": {
+      "title": "Your Book",
+      "storiesCount": "{count} stories",
+      "preview": "Preview",
+      "print": "Order Book Print",
+      "extraCopies": "Order Extra Copies"
+    },
+    "family": {
+      "title": "Family Members",
+      "invite": "Invite Member",
+      "role": {
+        "admin": "Administrator",
+        "family_member": "Family Member"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "storyteller": "Storyteller",
+      "subscription": "Subscription",
+      "notifications": "Notifications"
+    }
+  },
+  "recording": {
+    "greeting": "Hello {name}!",
+    "intro": "Your family wants to hear your story.",
+    "question": "Question of the week",
+    "record": "Record",
+    "stop": "Stop",
+    "submit": "Submit Recording",
+    "recording": "Recording...",
+    "uploading": "Uploading...",
+    "success": {
+      "title": "Thank you!",
+      "message": "Your recording has been saved successfully. Your family will be so happy!",
+      "another": "Make another recording"
+    },
+    "consent": "Your recording will be securely stored and used only for your family book.",
+    "expired": {
+      "title": "Link expired",
+      "message": "This recording link has expired. Please contact your family for a new link."
+    },
+    "error": {
+      "microphone": "Please allow microphone access to make a recording.",
+      "upload": "The recording could not be uploaded. Please try again.",
+      "generic": "An error occurred. Please try again."
+    }
+  }
+}

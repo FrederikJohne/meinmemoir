@@ -1,0 +1,239 @@
+{
+  "common": {
+    "appName": "MeineMemoiren",
+    "tagline": "Bewahre die Geschichten deiner Liebsten",
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "login": "Anmelden",
+    "logout": "Abmelden",
+    "signup": "Registrieren"
+  },
+  "landing": {
+    "hero": {
+      "title": "Die Geschichten deiner Familie — für immer bewahrt",
+      "subtitle": "Schenke deinen Liebsten ein sprechendes Erinnerungsbuch. Oma oder Opa erzählen per Sprachnachricht, wir machen ein wunderschönes Buch daraus.",
+      "cta": "Jetzt Erinnerungsbuch verschenken",
+      "price": "ab 99 €",
+      "trust": "Über 2.000 Familien vertrauen uns bereits"
+    },
+    "howItWorks": {
+      "title": "So einfach funktioniert's",
+      "step1": {
+        "title": "Du verschenkst das Buch",
+        "description": "Bestelle das Erinnerungsbuch-Paket und gib die Kontaktdaten des Geschichtenerzählers an."
+      },
+      "step2": {
+        "title": "Wöchentliche Fragen per WhatsApp",
+        "description": "Jede Woche erhält Oma oder Opa eine liebevolle Frage per WhatsApp — und antwortet einfach per Sprachnachricht."
+      },
+      "step3": {
+        "title": "KI macht Text daraus",
+        "description": "Unsere KI verwandelt jede Sprachnachricht in wunderschöne, lesbare Geschichten — im Original-Ton."
+      },
+      "step4": {
+        "title": "Dein Familienbuch kommt",
+        "description": "Am Ende bekommst du ein hochwertiges, gedrucktes Buch mit QR-Codes zum Anhören der Original-Aufnahmen."
+      }
+    },
+    "features": {
+      "title": "Warum MeineMemoiren?",
+      "noApp": {
+        "title": "Keine App nötig",
+        "description": "Der Geschichtenerzähler braucht keine App, kein Konto, kein Passwort. Alles funktioniert über einen einfachen Link."
+      },
+      "whatsapp": {
+        "title": "WhatsApp-Integration",
+        "description": "Fragen kommen direkt per WhatsApp — dem Kanal, den Senioren bereits kennen und nutzen."
+      },
+      "ai": {
+        "title": "KI-gestützte Aufbereitung",
+        "description": "Unsere KI bewahrt den Original-Ton und Dialekt, entfernt aber Füllwörter und verbessert die Lesbarkeit."
+      },
+      "print": {
+        "title": "Hochwertiger Druck",
+        "description": "Ein Premium-Hardcover-Buch mit QR-Codes, über die man die Original-Stimme anhören kann."
+      },
+      "family": {
+        "title": "Für die ganze Familie",
+        "description": "Lade Familienmitglieder ein, Fotos hinzuzufügen und die Geschichten gemeinsam zu erleben."
+      },
+      "privacy": {
+        "title": "DSGVO-konform",
+        "description": "Alle Daten werden in der EU gespeichert und nach strengsten Datenschutzstandards verarbeitet."
+      }
+    },
+    "pricing": {
+      "title": "Ein Geschenk, das bleibt",
+      "package": {
+        "name": "Das Erinnerungsbuch",
+        "price": "99",
+        "currency": "€",
+        "description": "Alles, was du brauchst, um die Geschichten deiner Familie für immer zu bewahren.",
+        "features": [
+          "52 Wochen lang wöchentliche Fragen",
+          "Unbegrenzte Sprachaufnahmen",
+          "KI-gestützte Textaufbereitung",
+          "1 Premium-Hardcover-Buch inkl.",
+          "QR-Codes mit Original-Stimme",
+          "Dashboard für die ganze Familie",
+          "DSGVO-konforme Datenspeicherung"
+        ],
+        "cta": "Jetzt verschenken"
+      },
+      "extraCopy": "Weitere Exemplare ab 29 € pro Stück"
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "items": [
+        {
+          "question": "Braucht Oma/Opa ein Smartphone?",
+          "answer": "Ja, ein Smartphone mit WhatsApp oder SMS-Empfang genügt. Keine App-Installation nötig — alles funktioniert über einen einfachen Link im Browser."
+        },
+        {
+          "question": "Was passiert mit den Aufnahmen?",
+          "answer": "Alle Aufnahmen werden sicher in der EU gespeichert und DSGVO-konform verarbeitet. Du hast jederzeit volle Kontrolle über die Daten."
+        },
+        {
+          "question": "Kann ich die Texte bearbeiten?",
+          "answer": "Ja! Im Familien-Dashboard kannst du alle KI-generierten Texte überprüfen, bearbeiten und Fotos hinzufügen, bevor das Buch gedruckt wird."
+        },
+        {
+          "question": "Wie lange dauert es, bis das Buch fertig ist?",
+          "answer": "Das Programm läuft 52 Wochen. Du kannst aber jederzeit das Buch drucken lassen — auch mit weniger Geschichten."
+        },
+        {
+          "question": "Was kostet ein weiteres Exemplar?",
+          "answer": "Weitere Exemplare kosten ab 29 € pro Stück — perfekt als Geschenk für Geschwister oder andere Familienmitglieder."
+        }
+      ]
+    },
+    "footer": {
+      "company": "MeineMemoiren",
+      "tagline": "Die Geschichten deiner Familie — für immer bewahrt.",
+      "legal": "Rechtliches",
+      "privacy": "Datenschutz",
+      "terms": "AGB",
+      "imprint": "Impressum",
+      "contact": "Kontakt",
+      "email": "hallo@meinememoiren.com"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melde dich an, um auf dein Familien-Dashboard zuzugreifen",
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "signupLink": "Jetzt registrieren",
+      "orContinueWith": "Oder fortfahren mit",
+      "google": "Mit Google anmelden"
+    },
+    "signup": {
+      "title": "Konto erstellen",
+      "subtitle": "Erstelle dein Konto, um loszulegen",
+      "name": "Name",
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "confirmPassword": "Passwort bestätigen",
+      "submit": "Konto erstellen",
+      "hasAccount": "Bereits ein Konto?",
+      "loginLink": "Jetzt anmelden"
+    }
+  },
+  "onboarding": {
+    "title": "Geschichtenerzähler einrichten",
+    "subtitle": "Gib die Kontaktdaten der Person an, deren Geschichten du bewahren möchtest.",
+    "name": "Name des Geschichtenerzählers",
+    "namePlaceholder": "z.B. Oma Helga",
+    "phone": "Telefonnummer",
+    "phonePlaceholder": "+49 171 1234567",
+    "deliveryMethod": "Wie sollen die Fragen zugestellt werden?",
+    "whatsapp": "WhatsApp",
+    "sms": "SMS",
+    "emailOption": "E-Mail",
+    "language": "Sprache",
+    "german": "Deutsch",
+    "swedish": "Schwedisch",
+    "english": "Englisch",
+    "submit": "Einrichtung abschließen"
+  },
+  "dashboard": {
+    "title": "Familien-Dashboard",
+    "nav": {
+      "stories": "Geschichten",
+      "book": "Buch",
+      "family": "Familie",
+      "settings": "Einstellungen"
+    },
+    "stories": {
+      "title": "Geschichten",
+      "empty": "Noch keine Geschichten vorhanden. Die erste Aufnahme kommt bald!",
+      "status": {
+        "pending": "Ausstehend",
+        "processing": "Wird verarbeitet",
+        "completed": "Fertig",
+        "failed": "Fehlgeschlagen"
+      },
+      "listen": "Anhören",
+      "edit": "Bearbeiten",
+      "viewAll": "Alle anzeigen"
+    },
+    "book": {
+      "title": "Dein Buch",
+      "storiesCount": "{count} Geschichten",
+      "preview": "Vorschau",
+      "print": "Buch drucken lassen",
+      "extraCopies": "Weitere Exemplare bestellen"
+    },
+    "family": {
+      "title": "Familienmitglieder",
+      "invite": "Mitglied einladen",
+      "role": {
+        "admin": "Administrator",
+        "family_member": "Familienmitglied"
+      }
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "storyteller": "Geschichtenerzähler",
+      "subscription": "Abonnement",
+      "notifications": "Benachrichtigungen"
+    }
+  },
+  "recording": {
+    "greeting": "Hallo {name}!",
+    "intro": "Deine Familie möchte deine Geschichte hören.",
+    "question": "Frage der Woche",
+    "record": "Aufnehmen",
+    "stop": "Stoppen",
+    "submit": "Aufnahme absenden",
+    "recording": "Aufnahme läuft...",
+    "uploading": "Wird hochgeladen...",
+    "success": {
+      "title": "Vielen Dank!",
+      "message": "Deine Aufnahme wurde erfolgreich gespeichert. Deine Familie wird sich sehr freuen!",
+      "another": "Noch eine Aufnahme machen"
+    },
+    "consent": "Deine Aufnahme wird sicher gespeichert und nur für dein Familienbuch verwendet.",
+    "expired": {
+      "title": "Link abgelaufen",
+      "message": "Dieser Aufnahme-Link ist leider abgelaufen. Bitte wende dich an deine Familie für einen neuen Link."
+    },
+    "error": {
+      "microphone": "Bitte erlaube den Zugriff auf dein Mikrofon, um eine Aufnahme zu machen.",
+      "upload": "Die Aufnahme konnte nicht hochgeladen werden. Bitte versuche es erneut.",
+      "generic": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+    }
+  }
+}
