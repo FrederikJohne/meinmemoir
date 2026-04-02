@@ -1,0 +1,17 @@
+{
+  "name": "meinememoiren-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@deepgram/sdk": "^3.0.0",
+    "@supabase/supabase-js": "^2.101.1",
+    "openai": "^4.0.0",
+    "posthog-node": "^5.28.10",
+    "qrcode": "^1.5.4"
+  }
+}
