@@ -1,18 +1,27 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import posthog from 'posthog-js';
 import { PostHogProvider } from 'posthog-js/react';
-import { initPostHog } from '@/lib/posthog/client';
 
 export function Providers({ children }: { children: React.ReactNode }) {
+  const initialized = useRef(false);
+
   useEffect(() => {
-    initPostHog();
+    if (!initialized.current && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+        api_host: 'https://eu.i.posthog.com',
+        capture_pageview: true,
+        capture_pageleave: true,
+        persistence: 'localStorage+cookie',
+        person_profiles: 'identified_only',
+      });
+      initialized.current = true;
+    }
   }, []);
 
-  const posthog = typeof window !== 'undefined' ? initPostHog() : undefined;
-
   return (
-    <PostHogProvider client={posthog!}>
+    <PostHogProvider client={posthog}>
       {children}
     </PostHogProvider>
   );

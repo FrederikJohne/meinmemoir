@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe/client';
+import { getStripe } from '@/lib/stripe/client';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
 import { captureServerEvent } from '@/lib/posthog/server';
 
@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { priceId } = body;
 
+    const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       payment_method_types: ['card', 'sepa_debit', 'klarna', 'paypal'],
