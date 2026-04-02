@@ -11,7 +11,7 @@ import type { Recording } from '@/lib/types';
 
 export default function BookPage() {
   const [recordings, setRecordings] = useState<Recording[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [copies, setCopies] = useState(1);
 
   useEffect(() => {
