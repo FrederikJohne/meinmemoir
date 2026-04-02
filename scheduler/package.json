@@ -1,0 +1,16 @@
+{
+  "name": "meinememoiren-scheduler",
+  "version": "1.0.0",
+  "description": "Prompt delivery scheduler for MeineMemoiren",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dispatch": "node dispatch-prompts.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.0.0",
+    "nanoid": "^5.0.0",
+    "posthog-node": "^4.0.0",
+    "twilio": "^5.0.0"
+  }
+}
