@@ -34,5 +34,13 @@ NEXT_PUBLIC_APP_URL, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRICE_ID
 Worker additionally needs: `DEEPGRAM_API_KEY`, `OPENAI_API_KEY`.
 Scheduler additionally needs: `WHATSAPP_*` and/or `TWILIO_*` vars (optional for dev).
 
+### Database migrations
+The 3 SQL files in `supabase/migrations/` must be run against the Supabase project (in order: 001, 002, 003) before auth/dashboard features work. Direct psql connections to Supabase are blocked from Cloud Agent VMs; run them via the Supabase Dashboard SQL Editor at `https://supabase.com/dashboard/project/<ref>/sql/new`.
+
+### Gotchas
+- `SUPABASE_SERVICE_ROLE_KEY` must be the **JWT service_role key** from Project Settings > API (long, 3-dot-separated token), not the database password.
+- Supabase Auth free tier has strict email rate limits (~4/hour). CLI-based signup tests can exhaust this quickly.
+- The `.gitignore` only ignores `/node_modules` (root). `worker/node_modules` and `scheduler/node_modules` are not gitignored — do not `git add` them.
+
 ### Lockfile
 Uses `npm` (has `package-lock.json`). Each service (`worker/`, `scheduler/`) has its own `package.json` and must have `npm install` run separately.
