@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   title: 'MeineMemoiren — Bewahre die Geschichten deiner Familie',
   description:
     'Verwandle die Erinnerungen deiner Liebsten in ein wunderschönes Buch mit QR-Code-Sprachaufnahmen. Das perfekte Geschenk für die ganze Familie.',
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
   keywords: ['Memoiren', 'Familienbuch', 'Erinnerungen', 'Geschenk', 'Großeltern', 'Sprachaufnahme'],
   openGraph: {
     title: 'MeineMemoiren — Bewahre die Geschichten deiner Familie',
