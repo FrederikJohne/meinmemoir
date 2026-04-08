@@ -1,6 +1,33 @@
 import { NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { captureServerEvent } from '@/lib/posthog/server';
+
+type AuthUser = {
+  id: string;
+  email?: string | null;
+  user_metadata?: {
+    full_name?: string;
+  };
+};
+
+async function ensureBuyerProfile(user: AuthUser) {
+  const serviceRole = createServiceRoleClient();
+  const fullName = user.user_metadata?.full_name ?? null;
+
+  const { error } = await serviceRole.from('users').upsert(
+    {
+      id: user.id,
+      email: user.email ?? '',
+      full_name: fullName,
+    },
+    { onConflict: 'id' }
+  );
+
+  if (error) {
+    throw new Error(`Failed to ensure buyer profile: ${error.message}`);
+  }
+}
 
 export async function GET() {
   try {
@@ -38,11 +65,24 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { name, phone_number, email, delivery_method, language, timezone } = body;
 
+    if (!name?.trim()) {
+      return NextResponse.json({ error: 'Name is required' }, { status: 400 });
+    }
+
+    if (delivery_method !== 'email' && !phone_number?.trim()) {
+      return NextResponse.json(
+        { error: 'Phone number is required for WhatsApp/SMS delivery' },
+        { status: 400 }
+      );
+    }
+
+    await ensureBuyerProfile(user);
+
     const { data, error } = await supabase
       .from('storytellers')
       .insert({
         buyer_id: user.id,
-        name,
+        name: name.trim(),
         phone_number,
         email,
         delivery_method: delivery_method || 'whatsapp',
@@ -52,7 +92,9 @@ export async function POST(request: Request) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      throw new Error(`Failed to create storyteller: ${error.message}`);
+    }
 
     // Link to existing subscription if any
     const { data: subscription } = await supabase
@@ -75,8 +117,9 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Internal server error';
     console.error('Error creating storyteller:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
