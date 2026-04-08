@@ -7,6 +7,7 @@ const supabase = createClient(
 );
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://meinememoiren.com';
+const WHATSAPP_PROVIDER = (process.env.WHATSAPP_PROVIDER || '').toLowerCase();
 
 const MESSAGE_TEMPLATES = {
   de: (name, question, link) =>
@@ -18,6 +19,54 @@ const MESSAGE_TEMPLATES = {
 };
 
 async function sendWhatsAppMessage(to, body) {
+  const provider = resolveWhatsAppProvider();
+
+  if (provider === 'twilio') {
+    return sendWhatsAppViaTwilio(to, body);
+  }
+
+  return sendWhatsAppViaMeta(to, body);
+}
+
+function resolveWhatsAppProvider() {
+  if (WHATSAPP_PROVIDER === 'twilio' || WHATSAPP_PROVIDER === 'meta') {
+    return WHATSAPP_PROVIDER;
+  }
+
+  // Prefer Twilio when credentials are present so production can
+  // move to Twilio without requiring a code change.
+  if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN && process.env.TWILIO_WHATSAPP_FROM) {
+    return 'twilio';
+  }
+
+  if (process.env.WHATSAPP_PHONE_NUMBER_ID && process.env.WHATSAPP_ACCESS_TOKEN) {
+    return 'meta';
+  }
+
+  throw new Error(
+    'No WhatsApp provider configured. Set WHATSAPP_PROVIDER=twilio|meta and matching credentials.'
+  );
+}
+
+function normalizePhone(to) {
+  return String(to || '').replace(/\s+/g, '');
+}
+
+function toMetaWhatsAppRecipient(to) {
+  return normalizePhone(to).replace(/^\+/, '');
+}
+
+function toTwilioWhatsAppRecipient(to) {
+  const normalized = normalizePhone(to);
+  const digitsOnly = normalized.replace(/[^\d]/g, '');
+  if (!digitsOnly) {
+    throw new Error(`Invalid phone number: "${to}"`);
+  }
+  const e164 = normalized.startsWith('+') ? normalized : `+${digitsOnly}`;
+  return `whatsapp:${e164}`;
+}
+
+async function sendWhatsAppViaMeta(to, body) {
   const response = await fetch(
     `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
     {
@@ -28,7 +77,7 @@ async function sendWhatsAppMessage(to, body) {
       },
       body: JSON.stringify({
         messaging_product: 'whatsapp',
-        to: to.replace(/\s+/g, '').replace(/^\+/, ''),
+        to: toMetaWhatsAppRecipient(to),
         type: 'text',
         text: { body },
       }),
@@ -38,6 +87,42 @@ async function sendWhatsAppMessage(to, body) {
   if (!response.ok) {
     const error = await response.json();
     throw new Error(`WhatsApp error: ${JSON.stringify(error)}`);
+  }
+
+  return response.json();
+}
+
+async function sendWhatsAppViaTwilio(to, body) {
+  const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  const authToken = process.env.TWILIO_AUTH_TOKEN;
+  const from = process.env.TWILIO_WHATSAPP_FROM;
+
+  if (!accountSid || !authToken || !from) {
+    throw new Error(
+      'Missing Twilio WhatsApp config. Required: TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM'
+    );
+  }
+
+  const params = new URLSearchParams();
+  params.append('To', toTwilioWhatsAppRecipient(to));
+  params.append('From', from);
+  params.append('Body', body);
+
+  const response = await fetch(
+    `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + Buffer.from(`${accountSid}:${authToken}`).toString('base64'),
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params,
+    }
+  );
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(`Twilio WhatsApp error: ${JSON.stringify(error)}`);
   }
 
   return response.json();
@@ -223,7 +308,15 @@ async function cleanupExpiredAudio() {
   console.log('Audio cleanup complete.');
 }
 
-module.exports = { dispatchPrompts, cleanupExpiredAudio };
+module.exports = {
+  dispatchPrompts,
+  cleanupExpiredAudio,
+  __private: {
+    resolveWhatsAppProvider,
+    toMetaWhatsAppRecipient,
+    toTwilioWhatsAppRecipient,
+  },
+};
 
 // Run if called directly
 if (require.main === module) {
