@@ -48,12 +48,16 @@ export default function OnboardingPage() {
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to create storyteller');
+      if (!res.ok) {
+        const errorPayload = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(errorPayload?.error || 'Failed to create storyteller');
+      }
 
       toast.success('Erzähler erfolgreich eingerichtet!');
       router.push('/dashboard');
-    } catch {
-      toast.error('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten.';
+      toast.error(message);
     } finally {
       setLoading(false);
     }

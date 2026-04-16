@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createServiceRoleClient } from '@/lib/supabase/server';
 import { captureServerEvent } from '@/lib/posthog/server';
 
 export async function GET() {
@@ -29,6 +30,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const supabase = await createServerSupabaseClient();
+    const serviceRole = createServiceRoleClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
@@ -37,6 +39,25 @@ export async function POST(request: Request) {
 
     const body = await request.json();
     const { name, phone_number, email, delivery_method, language, timezone } = body;
+
+    const { error: userUpsertError } = await serviceRole
+      .from('users')
+      .upsert(
+        {
+          id: user.id,
+          email: user.email ?? email ?? '',
+          full_name: user.user_metadata?.full_name ?? null,
+        },
+        { onConflict: 'id' }
+      );
+
+    if (userUpsertError) {
+      console.error('Error ensuring user profile:', userUpsertError);
+      return NextResponse.json(
+        { error: 'Profil konnte nicht vorbereitet werden.' },
+        { status: 500 }
+      );
+    }
 
     const { data, error } = await supabase
       .from('storytellers')
@@ -52,7 +73,13 @@ export async function POST(request: Request) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error inserting storyteller:', error);
+      return NextResponse.json(
+        { error: 'Erzaehler konnte nicht erstellt werden.' },
+        { status: 500 }
+      );
+    }
 
     // Link to existing subscription if any
     const { data: subscription } = await supabase
@@ -77,6 +104,6 @@ export async function POST(request: Request) {
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error creating storyteller:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    return NextResponse.json({ error: 'Interner Serverfehler' }, { status: 500 });
   }
 }

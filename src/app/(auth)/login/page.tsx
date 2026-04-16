@@ -38,10 +38,14 @@ export default function LoginPage() {
   }
 
   async function handleGoogleLogin() {
+    const oauthRedirectTo = process.env.NEXT_PUBLIC_APP_URL
+      ? `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/callback`
+      : `${window.location.origin}/api/auth/callback`;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
+        redirectTo: oauthRedirectTo,
       },
     });
 
@@ -91,6 +95,11 @@ export default function LoginPage() {
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Anmelden
               </Button>
+              <div className="text-right">
+                <Link href="/forgot-password" className="text-sm font-medium text-primary hover:underline">
+                  Passwort vergessen?
+                </Link>
+              </div>
             </form>
 
             <div className="relative my-6">

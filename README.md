@@ -91,6 +91,24 @@ See `.env.example` for all required environment variables. Key services:
 - **PostHog** — Analytics (EU Cloud endpoint)
 - **WhatsApp/Twilio** — Message delivery
 
+For Twilio-powered email outreach (SendGrid), also configure:
+
+- `TWILIO_SENDGRID_API_KEY`
+- `TWILIO_SENDGRID_FROM_EMAIL`
+
+## Enable Google Auth (Supabase)
+
+Google OAuth is wired in the login/signup UI and uses `/api/auth/callback` for session exchange. To enable it:
+
+1. Open Supabase Dashboard → `Authentication` → `Providers` → `Google`.
+2. Enable Google provider and add your Google OAuth client ID + secret.
+3. In your Google Cloud OAuth app, add this redirect URI:
+   - `https://<YOUR_SUPABASE_PROJECT_REF>.supabase.co/auth/v1/callback`
+4. In Supabase `Authentication` → `URL Configuration`, add your app URLs:
+   - Site URL: `https://meinememoiren.com` (or your env URL)
+   - Redirect URLs: `http://localhost:3000/api/auth/callback`, `https://meinememoiren.com/api/auth/callback`
+5. Set `NEXT_PUBLIC_APP_URL` in your environment so OAuth redirects use the correct domain.
+
 ## Railway Deployment
 
 Each service has its own `railway.toml` configuration:
