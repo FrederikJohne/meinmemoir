@@ -79,6 +79,7 @@ Run the SQL migrations in order against your Supabase project:
 1. `supabase/migrations/001_initial_schema.sql` — Tables, enums, indexes, triggers
 2. `supabase/migrations/002_rls_policies.sql` — Row Level Security
 3. `supabase/migrations/003_seed_prompts.sql` — 52 weekly questions (DE/EN/SV)
+4. `supabase/migrations/004_users_insert_policy.sql` — Allow users to insert their own `public.users` row (needed for onboarding / storytellers FK)
 
 ## Environment Variables
 

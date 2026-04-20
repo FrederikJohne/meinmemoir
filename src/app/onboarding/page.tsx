@@ -10,6 +10,33 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 
+async function readStorytellerApiError(res: Response): Promise<string> {
+  const statusLine = `HTTP ${res.status}${res.statusText ? ` ${res.statusText}` : ''}`;
+  const raw = await res.text();
+  if (!raw.trim()) {
+    return `Anfrage fehlgeschlagen (${statusLine}). Leere Antwort vom Server.`;
+  }
+  try {
+    const json = JSON.parse(raw) as {
+      error?: string;
+      detail?: string;
+      message?: string;
+    };
+    const parts = [json.error, json.detail, json.message].filter(
+      (s): s is string => typeof s === 'string' && s.length > 0
+    );
+    if (parts.length > 0) {
+      return `${parts.join(' — ')} (${statusLine})`;
+    }
+  } catch {
+    // not JSON (e.g. HTML error page)
+  }
+  const snippet = raw.replace(/\s+/g, ' ').trim().slice(0, 280);
+  return snippet
+    ? `${snippet} (${statusLine})`
+    : `Anfrage fehlgeschlagen (${statusLine}).`;
+}
+
 const deliveryMethods = [
   { id: 'whatsapp', label: 'WhatsApp', icon: MessageCircle },
   { id: 'sms', label: 'SMS', icon: Phone },
@@ -38,6 +65,7 @@ export default function OnboardingPage() {
     try {
       const res = await fetch('/api/storytellers', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
@@ -49,14 +77,18 @@ export default function OnboardingPage() {
       });
 
       if (!res.ok) {
-        const errorPayload = (await res.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(errorPayload?.error || 'Failed to create storyteller');
+        throw new Error(await readStorytellerApiError(res));
       }
 
       toast.success('Erzähler erfolgreich eingerichtet!');
       router.push('/dashboard');
-    } catch (error) {
-      const message = error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten.';
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : typeof error === 'string'
+            ? error
+            : 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
       toast.error(message);
     } finally {
       setLoading(false);
