@@ -35,7 +35,7 @@ Worker additionally needs: `DEEPGRAM_API_KEY`, `OPENAI_API_KEY`.
 Scheduler additionally needs: `WHATSAPP_*` and/or `TWILIO_*` vars (optional for dev).
 
 ### Database migrations
-The 3 SQL files in `supabase/migrations/` must be run against the Supabase project (in order: 001, 002, 003) before auth/dashboard features work. Direct psql connections to Supabase are blocked from Cloud Agent VMs; run them via the Supabase Dashboard SQL Editor at `https://supabase.com/dashboard/project/<ref>/sql/new`.
+The SQL files in `supabase/migrations/` must be run against the Supabase project (in order: 001, 002, 003, 004) before auth/dashboard features work. Direct psql connections to Supabase are blocked from Cloud Agent VMs; run them via the Supabase Dashboard SQL Editor at `https://supabase.com/dashboard/project/<ref>/sql/new`.
 
 ### Gotchas
 - `SUPABASE_SERVICE_ROLE_KEY` must be the **JWT service_role key** from Project Settings > API (long, 3-dot-separated token), not the database password.

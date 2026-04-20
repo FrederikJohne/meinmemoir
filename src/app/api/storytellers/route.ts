@@ -32,11 +32,44 @@ export async function POST(request: Request) {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json(
+        { error: 'Nicht angemeldet. Bitte erneut anmelden.' },
+        { status: 401 }
+      );
     }
 
     const body = await request.json();
     const { name, phone_number, email, delivery_method, language, timezone } = body;
+
+    // Ensure public.users row exists (FK for storytellers). Uses JWT + RLS INSERT policy.
+    const profileEmail =
+      typeof user.email === 'string' && user.email.length > 0
+        ? user.email
+        : typeof email === 'string' && email.length > 0
+          ? email
+          : 'pending@user.local';
+
+    const { error: userUpsertError } = await supabase.from('users').upsert(
+      {
+        id: user.id,
+        email: profileEmail,
+        full_name:
+          (user.user_metadata?.full_name as string | undefined) ?? null,
+      },
+      { onConflict: 'id' }
+    );
+
+    if (userUpsertError) {
+      console.error('Error ensuring user profile:', userUpsertError);
+      return NextResponse.json(
+        {
+          error:
+            'Profil konnte nicht angelegt werden. Bitte Supabase-Migration 004 ausführen oder erneut versuchen.',
+          detail: userUpsertError.message,
+        },
+        { status: 500 }
+      );
+    }
 
     const { data, error } = await supabase
       .from('storytellers')
@@ -52,7 +85,13 @@ export async function POST(request: Request) {
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Error inserting storyteller:', error);
+      return NextResponse.json(
+        { error: 'Erzähler konnte nicht erstellt werden.', detail: error.message },
+        { status: 500 }
+      );
+    }
 
     // Link to existing subscription if any
     const { data: subscription } = await supabase
@@ -60,7 +99,7 @@ export async function POST(request: Request) {
       .select('id')
       .eq('buyer_id', user.id)
       .is('storyteller_id', null)
-      .single();
+      .maybeSingle();
 
     if (subscription) {
       await supabase
@@ -69,14 +108,26 @@ export async function POST(request: Request) {
         .eq('id', subscription.id);
     }
 
-    captureServerEvent(user.id, 'storyteller_onboarded', {
-      delivery_method: data.delivery_method,
-      language: data.language,
-    });
+    try {
+      captureServerEvent(user.id, 'storyteller_onboarded', {
+        delivery_method: data.delivery_method,
+        language: data.language,
+      });
+    } catch (posthogError) {
+      console.error('PostHog capture failed (non-fatal):', posthogError);
+    }
 
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('Error creating storyteller:', error);
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+    const detail =
+      error instanceof Error ? error.message : typeof error === 'string' ? error : undefined;
+    return NextResponse.json(
+      {
+        error: 'Interner Serverfehler',
+        ...(detail ? { detail } : {}),
+      },
+      { status: 500 }
+    );
   }
 }
