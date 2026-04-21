@@ -3,7 +3,9 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { User, MessageCircle, Phone, Mail, Globe } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { AddStorytellerDialog } from '@/components/dashboard/add-storyteller-dialog';
+import { User, MessageCircle, Phone, Mail, Globe, Plus } from 'lucide-react';
 import type { Storyteller } from '@/lib/types';
 
 const deliveryIcons = {
@@ -21,14 +23,15 @@ const languageLabels: Record<string, string> = {
 export default function StorytellerPage() {
   const [storytellers, setStorytellers] = useState<Storyteller[]>([]);
   const [loading, setLoading] = useState(true);
+  const [addOpen, setAddOpen] = useState(false);
 
   useEffect(() => {
     async function fetchStorytellers() {
       try {
-        const res = await fetch('/api/storytellers');
+        const res = await fetch('/api/storytellers', { credentials: 'include' });
         if (res.ok) {
           const data = await res.json();
-          setStorytellers(data || []);
+          setStorytellers(Array.isArray(data) ? data : []);
         }
       } catch {
         console.error('Failed to fetch storytellers');
@@ -46,7 +49,7 @@ export default function StorytellerPage() {
           <h1 className="text-2xl font-bold text-foreground">Erzähler</h1>
         </div>
         <div className="space-y-3">
-          {[1, 2].map(i => (
+          {[1, 2].map((i) => (
             <div key={i} className="h-32 animate-pulse rounded-lg bg-muted" />
           ))}
         </div>
@@ -56,21 +59,37 @@ export default function StorytellerPage() {
 
   return (
     <div className="p-6 lg:p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">Erzähler</h1>
-        <p className="text-muted-foreground">Verwalte die Profile deiner Erzähler.</p>
+      <AddStorytellerDialog
+        open={addOpen}
+        onOpenChange={setAddOpen}
+        onCreated={(s) => setStorytellers((prev) => [s, ...prev])}
+      />
+
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-foreground">Erzähler</h1>
+          <p className="text-muted-foreground">Verwalte die Profile deiner Erzähler.</p>
+        </div>
+        <Button type="button" className="shrink-0" onClick={() => setAddOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />
+          Neuer Erzähler
+        </Button>
       </div>
 
       {storytellers.length === 0 ? (
         <Card>
-          <CardContent className="flex flex-col items-center gap-3 py-12 text-center">
+          <CardContent className="flex flex-col items-center gap-4 py-12 text-center">
             <User className="h-16 w-16 text-muted-foreground/30" />
             <div>
               <p className="text-lg font-medium text-foreground">Kein Erzähler eingerichtet</p>
               <p className="text-sm text-muted-foreground">
-                Richte zuerst einen Erzähler ein, um loszulegen.
+                Lege einen Erzähler an, um loszulegen.
               </p>
             </div>
+            <Button type="button" onClick={() => setAddOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
+              Erzähler hinzufügen
+            </Button>
           </CardContent>
         </Card>
       ) : (
@@ -94,12 +113,17 @@ export default function StorytellerPage() {
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm">
-                    <DeliveryIcon className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex flex-wrap items-center gap-2 text-sm">
+                    <DeliveryIcon className="h-4 w-4 shrink-0 text-muted-foreground" />
                     <span className="capitalize">{storyteller.delivery_method}</span>
                     {storyteller.phone_number && (
                       <span className="text-muted-foreground">
                         — {storyteller.phone_number}
+                      </span>
+                    )}
+                    {storyteller.delivery_method === 'email' && storyteller.email && (
+                      <span className="break-all text-muted-foreground">
+                        — {storyteller.email}
                       </span>
                     )}
                   </div>

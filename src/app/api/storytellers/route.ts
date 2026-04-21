@@ -39,7 +39,17 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, phone_number, email, delivery_method, language, timezone } = body;
+    let { name, phone_number, email, delivery_method, language, timezone } = body;
+
+    if (typeof name === 'string') name = name.trim();
+    if (!name) {
+      return NextResponse.json(
+        { error: 'Bitte einen Namen angeben.' },
+        { status: 400 }
+      );
+    }
+    if (typeof phone_number === 'string') phone_number = phone_number.trim() || null;
+    if (typeof email === 'string') email = email.trim() || null;
 
     // Ensure public.users row exists (FK for storytellers). Uses JWT + RLS INSERT policy.
     const profileEmail =
